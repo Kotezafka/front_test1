@@ -1,0 +1,737 @@
+/* =================================
+   CSS Variables
+   ================================= */
+   :root {
+    --primary-color: #FFA500;
+    --secondary-color: #000;
+    --text-color: #333;
+    --light-gray: #f4f4f4;
+    --medium-gray: #e0e0e0;
+    --dark-gray: #666;
+    --white: #fff;
+    --font-main: 'Inter', sans-serif;
+    --font-secondary: 'Arial', sans-serif;
+    --container-width: 1200px;
+    --border-radius: 5px;
+    --transition: all 0.3s ease;
+}
+
+/* =================================
+   Общие стили
+   ================================= */
+
+   body {
+    font-family: var(--font-secondary);
+    margin: 0; /* Убираем внешние отступы */
+    padding: 0; /* Убираем внутренние отступы */
+    line-height: 1.6; /* Межстрочный интервал */
+    color: #333; /* Основной цвет текста */
+    background-color: #f4f4f4; /* Цвет фона страницы */
+}
+
+.container {
+    max-width: 1200px; /* Максимальная ширина контента */
+    margin: 0 auto; /* Центрирование по горизонтали */
+    padding: 0 20px; /* Отступы слева и справа */
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    background-color: transparent;
+    position: relative;
+    margin-bottom: 70px;
+}
+
+.header::after {
+    content: "";
+    position: absolute;
+    left: 230px;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background-color: #000;
+}
+
+.shop-name {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 35px;
+    color: #333;
+    margin-left: 20px;
+    letter-spacing: 1px;
+}
+
+.cart-info {
+    align-items: center;
+    background-color: #FFA500;
+    padding: 10px 15px;
+    border-radius: 5px;
+    color: #333;
+    font-weight: normal;
+    position: relative;
+    margin-right: 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    letter-spacing: 1%;
+    text-decoration: none;
+}
+
+.cart-info img {
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
+}
+
+#cart-item-count {
+    margin-left: 15px;
+}
+
+/* Стили для блока контактов */
+.contacts {
+    background-color: #000; /* Черный фон */
+    color: white; /* Белый текст */
+    padding: 40px 0 30px; /* Отступы сверху и снизу */
+    text-align: right; /* Выравнивание текста по правому краю */
+    position: relative; /* Для позиционирования псевдоэлемента */
+    margin-top: 50px; /* Добавлено для разделения */
+}
+
+/* Декоративная линия над контактами */
+.contacts::before {
+    content: ""; /* Обязательно для псевдоэлемента */
+    position: absolute; /* Абсолютное позиционирование */
+    left: 120px; /* Отступ слева */
+    right: 120px; /* Отступ справа */
+    top: 20px; /* Позиционирование сверху */
+    height: 2px; /* Толщина линии */
+    background-color: rgba(255,255,255,0.8); /* Цвет линии с прозрачностью */
+}
+
+/* Заголовок блока контактов */
+.contacts h3 {
+    margin-top: 25px; /* Отступ сверху */
+    font-family: 'Inter', sans-serif; /* Шрифт */
+    font-weight: 400; /* Жирность */
+    font-size: 25px; /* Размер */
+    margin-bottom: 15px; /* Отступ снизу */
+    color: #fff; /* Цвет текста */
+}
+
+/* Параграфы в блоке контактов */
+.contacts p {
+    margin: 5px 0; /* Отступы сверху и снизу */
+    font-size: 16px; /* Размер шрифта */
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 900px) {
+    /* Корректировка линии в шапке */
+    .header::after {
+        left: 80px;
+        right: 80px;
+    }
+    
+    /* Корректировка линии в контактах */
+    .contacts::before {
+        left: 80px;
+        right: 80px;
+    }
+}
+
+@media (max-width: 600px) {
+    /* Шапка в колонку на маленьких экранах */
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    /* Корректировка линии в шапке */
+    .header::after {
+        left: 40px;
+    }
+    
+    /* Корректировка линии в контактах */
+    .contacts::before {
+        left: 30px;
+        right: 30px;
+        top: 15px;
+    }
+    
+    /* Отступ для заголовка контактов */
+    .contacts h3 {
+        margin-top: 20px;
+    }
+
+    /* Отступ для корзины */
+    .cart-info {
+        margin-top: 15px;
+    }
+}
+
+
+/* =================================
+   main_page.html
+   ================================= */
+/* Поиск */
+.main-page .search {
+    padding: 20px 0;
+    margin-bottom: 30px;
+}
+
+.main-page .search input {
+    padding: 12px 20px;
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-left: 20px;
+}
+
+/* Карточки товаров */
+.main-page .products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 70px; /* Уменьшим отступ между карточками */
+    max-width: 1600px; /* Установим максимальную ширину для контейнера товаров */
+    margin: 0 auto 40px auto; /* Центрируем контейнер и добавим отступ снизу */
+    padding: 0 20px; /* Добавим отступы по бокам контейнера */
+}
+
+.main-page .product-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    display: flex; /* Добавляем flex-контейнер для содержимого карточки */
+    flex-direction: column; /* Размещаем элементы внутри карточки вертикально */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Плавное изменение трансформации и тени */
+
+}
+
+.main-page .product-card:hover {
+    transform: scale(1.03); /* Увеличение карточки на 3% */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); /* Увеличенная тень */
+    z-index: 1; /* Поднимаем карточку над другими элементами */
+}
+
+.main-page .product-image {
+    width: 100%;
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f8f8;
+}
+
+.main-page .product-image img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+}
+   
+.main-page .product-image::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+}
+
+.main-page .product-details {
+    padding: 15px;
+    flex-grow: 1; /* Позволяет блоку деталей занимать оставшееся пространство */
+}
+
+.main-page .product-title {
+    font-weight: 700;
+    font-size: 18px;
+    margin: 0 0 10px 0;
+}
+
+.main-page .product-divider {
+    height: 1px;
+    background-color: #000;
+    margin: 10px 0;
+}
+
+.main-page .product-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px; /* Добавим отступы и для футера */
+    border-top: 1px solid #e0e0e0; /* Добавим разделительную линию сверху */
+}
+
+.main-page .product-price {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.main-page .add-to-cart {
+    background-color: #FFA500; /* Оранжевый цвет кнопки */
+    color: #000; /* Черный цвет текста */
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+/* Адаптивность */
+@media (max-width: 900px) {
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .products {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+/* =================================
+   product_page.html
+   ================================= */
+/* Контейнер для товара */
+.product-page .product-container {
+    width: 50%; /* Ширина относительно экрана */
+    margin: 20px auto 40px; /* Центрирование и отступы */
+    background-color: #fff; /* Белый фон */
+    padding: 40px; /* Внутренние отступы */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Тень */
+    display: grid; /* Сеточная верстка */
+    grid-template-columns: 1fr 1fr; /* Две колонки */
+    gap: 50px; /* Расстояние между колонками */
+}
+
+/* Контейнер для изображения товара */
+.product-page .product-image {
+    width: 550px;
+    height: 550px;
+    position: relative;
+    overflow: hidden;
+    background-color: #f9a825;
+}
+
+.product-page .product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Блок с деталями товара */
+.product-page .product-details {
+    display: flex; /* Гибкое расположение */
+    flex-direction: column; /* Элементы в колонку */
+    justify-content: space-between; /* Равномерное распределение */
+}
+
+.product-page .product-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400; /* Regular */
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+/* Описание товара */
+.product-page .product-description {
+    color: #666; /* Цвет текста */
+    margin-bottom: 15px; /* Отступ снизу */
+    text-align: right;
+}
+
+/* Цена товара */
+.product-page .product-price {
+    font-size: 1.5em; /* Размер */
+    font-weight: bold; /* Жирность */
+    margin-bottom: 15px; /* Отступ снизу */
+    text-align: right;
+}
+
+/* Блок с кнопкой "В корзину" */
+.product-page .add-to-cart-section {
+    display: flex; /* Гибкое расположение */
+    align-items: center; /* Выравнивание по вертикали */
+}
+
+/* Кнопка "В корзину" */
+.product-page .add-to-cart-button {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700; /* Bold */
+    font-size: 15px;
+    background-color: #000000;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 60px;
+    letter-spacing: 1px;
+}
+
+/* Блок с количеством товара */
+.product-page .availability {
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    color: #000000;
+}
+
+/* Адаптивность */
+@media (max-width: 900px) {
+    .product-container {
+        grid-template-columns: 1fr;
+        width: 90%;
+    }
+}
+
+
+   /* =================================
+   cart.html
+   ================================= */
+/* Стили для корзины */
+.cart-container {
+    width: 80%;
+    margin: 20px auto 40px;
+    background-color: #fff;
+    padding: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-top: 0;
+    color: #333;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 25px;
+    margin-bottom: 30px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: flex-start;
+    border-bottom: 1px solid #eee;
+    padding: 15px 0;
+    position: relative;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+/* Увеличенные изображения товаров */
+.item-image-placeholder {
+    background-color: #f9a825;
+    color: white;
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.item-details {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    height: 120px; /* Такая же высота как у изображения */
+    justify-content: space-between; /* Распределяем пространство */
+}
+
+.item-title {
+    font-weight: bold;
+    color: #333;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    margin-top: 0; /* Убираем верхний отступ */
+}
+
+.item-price {
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 0; /* Убираем нижний отступ */
+    align-self: flex-end; /* Выравниваем по правому краю */
+}
+
+.item-quantity {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-left: 15px;
+}
+
+.quantity-controls button {
+    background: none;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #555;
+}
+
+.quantity-controls .quantity {
+    padding: 5px 10px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.remove-button {
+    background-color: #000;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 15px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+    margin-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.checkout-button-container {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.checkout-button {
+    background-color: #FFA500;
+    color: #000;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-button:hover {
+    background-color: #e69500;
+}
+
+/* Адаптивность */
+@media (max-width: 900px) {
+    .cart-container {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .item-image-placeholder {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+    }
+    
+    .item-details {
+        height: auto;
+        width: 100%;
+    }
+    
+    .item-quantity {
+        margin-left: 0;
+        margin-top: 15px;
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+   /* =================================
+   make_order.html
+   ================================= */
+/* Стили для формы заказа */
+.order-form {
+    width: 80%;
+    margin: 20px auto 40px;
+    background-color: #fff;
+    padding: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили для заголовка формы */
+.order-form h2 {
+    margin-bottom: 55px; /* Увеличил отступ снизу */
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 25px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"] {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.form-actions {
+    text-align: right;  /* Это выравнивает содержимое по правому краю */
+    margin-top: 30px;   /* Отступ сверху */
+}
+
+/* Обновленные стили для кнопки */
+.submit-button-container {
+    text-align: right;
+    margin-top: 30px;
+}
+
+.submit-button {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    background-color: #FFA500; /* Оранжевый цвет */
+    color: #000; /* Черный текст */
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+    background-color: #e69500; /* Темнее оранжевый при наведении */
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 900px) {
+    .order-form {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .order-form {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+   /* =================================
+   order_confirmation.html
+   ================================= */
+/* Стили для основного контента подтверждения заказа */
+.order-container {
+    width: 80%;
+    margin: 20px auto 40px;
+    background-color: #fff;
+    padding: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.order-info {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.order-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+.order-details {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px 20px;
+    margin-bottom: 15px;
+}
+
+.label {
+    color: #666;
+}
+
+.value {
+    font-weight: bold;
+    color: #333;
+}
+
+.success-message {
+    font-size: 18px;
+    color: #28a745;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+    margin: 30px 0; /* Увеличим отступы сверху и снизу */
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 900px) {
+    .order-container {
+        width: 90%;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 600px) {
+    .order-container {
+        width: 90%;
+        padding: 20px;
+    }
+}
