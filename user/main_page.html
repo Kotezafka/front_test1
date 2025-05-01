@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ИскраСвет - Главная</title>
+    <style>
+        /* Основные стили */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* Контейнер для ограничения ширины */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Шапка (обновленная) */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            background-color: transparent;
+            position: relative;
+            margin-bottom: 70px;
+        }
+        
+        .header::after {
+            content: "";
+            position: absolute;
+            left: 230px;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            background-color: #000;
+        }
+        
+        .shop-name {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 35px;
+            color: #333;
+            margin-left: 20px;
+            letter-spacing: 1px;
+        }
+        
+        .cart-info {
+            /* display: flex; */
+            align-items: center;
+            background-color: #FFA500;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: #333;
+            font-weight: normal;
+            position: relative;
+            margin-right: 20px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 20px;
+            letter-spacing: 1%;
+            text-decoration: none; /* Убираем подчеркивание */
+        }
+        
+        .cart-info img {
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+        }
+
+        #cart-item-count {
+            margin-left: 15px; /* Увеличьте значение для большего расстояния */
+        }
+        
+        /* Поиск */
+        .search {
+            padding: 20px 0;
+            margin-bottom: 30px;
+        }
+        
+        .search input {
+            padding: 12px 20px;
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-left: 20px;
+        }
+        
+        /* Карточки товаров */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 70px; /* Уменьшим отступ между карточками */
+            max-width: 1600px; /* Установим максимальную ширину для контейнера товаров */
+            margin: 0 auto 40px auto; /* Центрируем контейнер и добавим отступ снизу */
+            padding: 0 20px; /* Добавим отступы по бокам контейнера */
+        }
+        
+        .product-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; /* Добавляем flex-контейнер для содержимого карточки */
+            flex-direction: column; /* Размещаем элементы внутри карточки вертикально */
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 520px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+           
+        .product-image::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .product-details {
+            padding: 15px;
+            flex-grow: 1; /* Позволяет блоку деталей занимать оставшееся пространство */
+        }
+        
+        .product-title {
+            font-weight: 700;
+            font-size: 18px;
+            margin: 0 0 10px 0;
+        }
+        
+        .product-divider {
+            height: 1px;
+            background-color: #000;
+            margin: 10px 0;
+        }
+        
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px; /* Добавим отступы и для футера */
+            border-top: 1px solid #e0e0e0; /* Добавим разделительную линию сверху */
+        }
+        
+        .product-price {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .add-to-cart {
+            background-color: #FFA500; /* Оранжевый цвет кнопки */
+            color: #000; /* Черный цвет текста */
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        /* Контакты (обновленные) */
+        .contacts {
+            background-color: #000;
+            color: white;
+            padding: 40px 0 30px;
+            text-align: right;
+            position: relative;
+        }
+        
+        .contacts::before {
+            content: "";
+            position: absolute;
+            left: 120px;
+            right: 120px;
+            top: 20px;
+            height: 2px;
+            background-color: rgba(255,255,255,0.8);
+        }
+        
+        .contacts h3 {
+            margin-top: 25px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 25px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .contacts p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 900px) {
+            .products {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .header::after {
+                left: 80px;
+            }
+            
+            .contacts::before {
+                left: 80px;
+                right: 80px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .header::after {
+                left: 40px;
+            }
+            
+            .contacts::before {
+                left: 30px;
+                right: 30px;
+                top: 15px;
+            }
+            
+            .contacts h3 {
+                margin-top: 20px;
+            }
+            
+            .cart-info {
+                margin-top: 15px;
+            }
+            
+            .products {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <div class="header">
+            <div class="shop-name">ИскраСвет</div>
+            <a href="cart.html" class="cart-info">
+                Корзина <span id="cart-item-count">7</span>
+            </a>
+        </div>
+        
+        <!-- Поиск -->
+        <div class="search">
+            <input type="text" placeholder="Поиск по каталогу">
+        </div>
+    </div>
+    
+    <!-- Карточки товаров -->
+    <div class="products">
+        <!-- Товар 1 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/11213128/2a000001906d8c2404cb3f5c6e8cb34d9af9/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page1.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа ELEKTROSTANDARD, LED, 80Ra, 4200K, металлическая ML-104 бежевый</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">3 700 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 2 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/11318716/2a00000193fdc295d9873b036b3d46355185/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page2.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа FRIENDME бестеневая, LED, 12W, дневной белый, сверхтеплый, теплый белый, холодный белый</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">4 500 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Товар 3 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/3590777/2a0000018ea2acd1d19c67cef78c681ab758/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page3.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа FRIENDME бестеневая, двойной источник света, 24W</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">4 700 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 4 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/14353726/2a0000019643225696f1890813d2f338ea01/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page4.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа Xiaomi Mijia Desk Light Lite2, LED, мощность 7.5 Вт</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">1 800 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 5 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/5031100/2a0000018ea2a3971146e13177ec2ff2dd09/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page5.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа FRIENDME, LED, 90Ra, 5000K, Черная</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">3 100 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 6 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/1578067/2a000001907a4e8bd92bb848d5f7ebabca94/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page6.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа сенсорная с USB-зарядкой, E27, 4000K, Черная, Металл</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">2 100 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 7 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/3689399/2a00000194eeb98b01b883fcecdac09f83c2/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page7.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа REXANT, 4Вт, LED, 4000К</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">900 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 8 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/1924580/2a000001921f17b3b895e08fb54c8a502fbf/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page8.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа беспроводная, LED, дистанционное управление, 6000K</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">1 400 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 9 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/5301034/2a0000018dd5c1942cd9e3f2352f562416f6/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page9.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольный светильник из дерева BRILLIGHT, E14, 2700K</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">1 800 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 10 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/11563949/2a0000018cfcf44e4c91efd47ae937e60f33/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page10.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Парящая настольная левитирующая лампа светильник GEAGLE, LIGHTBULB, теплый белый</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">4 300 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 11 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/7981713/2a00000191d734236fd816e437c5a1a4a5fc/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page11.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольный светильник BRILLIGHT "Листья"</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">3 100 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 12 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/4497593/2a0000019016745cfee29da2dc63fc7407b5/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page12.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа SELEROLIFE, LED, 80Ra, 6000K</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">1 200 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 13 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/4303817/2a0000018f7df7297e10a766f7f511b61f60/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page13.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольный светильник "Райли", 4 варианта сборки в одном, E14</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">1 300 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 14 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/11385384/2a0000018bb92c706f01fb0d9b724633c597/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page14.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа беспроводная аккумуляторная, FEDOTOV, LED, 80RA, 3000K</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">3 700 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 15 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/5022937/2a00000190b12a4807e7669349a5274e05b4/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page15.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа гибкая, сенсорное управление, с USB-разъёмом для зарядки, E27, белая</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">1 900 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 16 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://ir-3.ozone.ru/s3/multimedia-1-f/wc1000/7316328579.jpg" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page16.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Умная лампа Xiaomi Mijia Magnetic Reading Lamp</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">1 100 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 17 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/4881627/2a00000191d70f59e15a3695cf4682414b65/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page17.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Лампа-трансформер AstoCrysta "Stevie", LED, E14, 7 Вт, складная, деревянная</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">1 000 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div> 
+
+        <!-- Товар 18 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://ir.ozone.ru/s3/multimedia-1-b/wc1000/7188351131.jpg" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page18.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа Home-like_Cozy, LED, 5W, E27, холодный белый свет</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">1 600 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 19 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/5210681/2a00000194f94b9065485aa8a2a47963d58d/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page19.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа декоративная Arte Lamp SEBASTIAN A7051LT-1BK E14 чёрный</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">5 900 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Товар 20 -->
+        <div class="product-card">
+            <div class="product-image">
+                <img src="https://avatars.mds.yandex.net/get-mpic/5086514/2a000001907a4e8bddb87dd5e408c7366d9e/optimize" style="width: 100%; height: auto;">
+            </div>
+            <div class="product-details">
+                <a href="product_page20.html" style="text-decoration: none; color: inherit;">
+                    <h3 class="product-title">Настольная лампа, бежевая, E27, регулировка яркости, USB-зарядка</h3>
+                </a>
+                <div class="product-divider"></div>
+                <div class="product-footer">
+                    <span class="product-price">2 100 руб</span>
+                    <button class="add-to-cart">В корзину</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Предположим, у вас есть переменная, хранящая количество товаров в корзине
+        let itemCount = 7; // Замените это на фактическое значение из вашей корзины
+    
+        // Находим элемент, отображающий количество товаров в корзине
+        const cartItemCountElement = document.getElementById('cart-item-count');
+    
+        // Обновляем текст элемента
+        if (cartItemCountElement) {
+            cartItemCountElement.textContent = itemCount;
+        }
+    </script>
+    <!-- Контакты (обновленные) -->
+    <div class="contacts">
+        <div class="container">
+            <h3>Контакты магазина</h3>
+            <p>Телефон: +7 (999) 888-77-66</p>
+            <p>Email: iskrasvet@example.ru</p>
+            <p>Адрес: г. Москва, ул. Искрасвет</p>
+        </div>
+    </div>
+</body>
+</html>

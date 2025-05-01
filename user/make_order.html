@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление заказа</title>
+    <style>
+        /* Основные стили для всей страницы */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+        
+        /* Основной контейнер для центрирования контента */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Стили для шапки сайта */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            background-color: transparent;
+            position: relative;
+            margin-bottom: 70px;
+        }
+        
+        /* Декоративная линия под шапкой */
+        .header::after {
+            content: "";
+            position: absolute;
+            left: 230px;
+            right: 0;
+            bottom: 0;
+            height: 2px;
+            background-color: #000;
+        }
+        
+        /* Стили для названия магазина */
+        .shop-name {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 35px;
+            color: #333;
+            margin-left: 20px;
+            letter-spacing: 1px;
+        }
+        
+        /* Стили для блока корзины */
+        .cart-info {
+            display: flex;
+            align-items: center;
+            background-color: #FFA500;
+            padding: 10px 15px;
+            border-radius: 5px;
+            color: #333;
+            font-weight: normal;
+            position: relative;
+            margin-right: 20px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 20px;
+            letter-spacing: 0%;
+        }
+        
+        /* Стили для иконки корзины */
+        .cart-info img {
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+        }
+
+        /* Стили для формы заказа */
+        .order-form {
+            width: 80%;
+            margin: 20px auto 40px;
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Стили для заголовка формы */
+        .order-form h2 {
+            margin-bottom: 55px; /* Увеличил отступ снизу */
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        
+        .form-actions {
+            text-align: right;  /* Это выравнивает содержимое по правому краю */
+            margin-top: 30px;   /* Отступ сверху */
+        }
+
+        /* Обновленные стили для кнопки */
+        .submit-button-container {
+            text-align: right;
+            margin-top: 30px;
+        }
+        
+        .submit-button {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            background-color: #FFA500; /* Оранжевый цвет */
+            color: #000; /* Черный текст */
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-button:hover {
+            background-color: #e69500; /* Темнее оранжевый при наведении */
+        }
+
+        /* Стили для блока контактов */
+        .contacts {
+            background-color: #000;
+            color: white;
+            padding: 40px 0 30px;
+            text-align: right;
+            position: relative;
+            margin-top: 50px;
+        }
+        
+        /* Декоративная линия над контактами */
+        .contacts::before {
+            content: "";
+            position: absolute;
+            left: 120px;
+            right: 120px;
+            top: 20px;
+            height: 2px;
+            background-color: rgba(255,255,255,0.8);
+        }
+        
+        /* Заголовок блока контактов */
+        .contacts h3 {
+            margin-top: 25px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            font-size: 25px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        /* Параграфы в блоке контактов */
+        .contacts p {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+        
+        /* Адаптивность для мобильных устройств */
+        @media (max-width: 900px) {
+            /* Корректировка линии в шапке */
+            .header::after {
+                left: 80px;
+                right: 80px;
+            }
+            
+            /* Корректировка линии в контактах */
+            .contacts::before {
+                left: 80px;
+                right: 80px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            /* Шапка в колонку на маленьких экранах */
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            /* Корректировка линии в шапке */
+            .header::after {
+                left: 40px;
+            }
+            
+            /* Корректировка линии в контактах */
+            .contacts::before {
+                left: 30px;
+                right: 30px;
+                top: 15px;
+            }
+            
+            /* Отступ для корзины */
+            .cart-info {
+                margin-top: 15px;
+            }
+            
+            /* Уменьшение отступов формы */
+            .order-form {
+                width: 90%;
+                padding: 20px;
+            }
+            
+            /* Отступ для заголовка контактов */
+            .contacts h3 {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Основной контейнер страницы -->
+    <div class="container">
+        <!-- Шапка сайта -->
+        <div class="header">
+            <div class="shop-name">ИскраСвет</div>
+            <div class="cart-info">
+                Корзина 5
+                <img src="https://avatars.mds.yandex.net/i?id=a9afe2d2c7411a3008fd2b058f26608efb5a5351-10996738-images-thumbs&ref=rim&n=33&w=200&h=200" alt="Иконка корзины">
+            </div>
+        </div>
+    </div>
+
+    <!-- Форма заказа -->
+    <div class="order-form">
+        <h2>Оформление заказа</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">Имя</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="surname">Фамилия</label>
+                <input type="text" id="surname" name="surname" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Телефон</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Адрес</label>
+                <input type="text" id="address" name="address" required>
+            </div>
+            <div class="form-actions">
+            <button type="submit" class="submit-button">Подтвердить заказ</button>
+        </div>
+        </form>
+    </div>
+    
+    <!-- Блок контактов магазина -->
+    <div class="contacts">
+        <div class="container">
+            <h3>Контакты магазина</h3>
+            <p>Телефон: +7 (999) 888-77-66</p>
+            <p>Email: iskrasvet@example.ru</p>
+            <p>Адрес: г. Москва, ул. Искрасвет</p>
+        </div>
+    </div>
+</body>
+</html>
+
