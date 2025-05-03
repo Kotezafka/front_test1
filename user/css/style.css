@@ -1,7 +1,7 @@
 /* =================================
    CSS Variables
    ================================= */
-   :root {
+:root {
     --primary-color: #FFA500;
     --secondary-color: #000;
     --text-color: #333;
@@ -25,8 +25,8 @@
     margin: 0; /* Убираем внешние отступы */
     padding: 0; /* Убираем внутренние отступы */
     line-height: 1.6; /* Межстрочный интервал */
-    color: #333; /* Основной цвет текста */
-    background-color: #f4f4f4; /* Цвет фона страницы */
+    color: var(--text-color); /* Основной цвет текста */
+    background-color:  var(--light-gray); /* Цвет фона страницы */
 }
 
 .container {
@@ -52,14 +52,14 @@
     right: 0;
     bottom: 0;
     height: 2px;
-    background-color: #000;
+    background-color: var(--secondary-color);
 }
 
 .shop-name {
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-main);
     font-weight: 600;
     font-size: 35px;
-    color: #333;
+    color: var(--text-color);
     margin-left: 20px;
     letter-spacing: 1px;
 }
@@ -427,8 +427,12 @@ h1 {
     display: flex;
     align-items: flex-start;
     border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
     padding: 15px 0;
     position: relative;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    align-items: center;
 }
 
 .cart-item:last-child {
@@ -449,6 +453,21 @@ h1 {
     flex-shrink: 0;
 }
 
+.item-image {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
+}
+
+.item-image img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
 .item-details {
     flex-grow: 1;
     display: flex;
@@ -464,6 +483,7 @@ h1 {
     font-weight: 400;
     font-size: 18px;
     margin-top: 0; /* Убираем верхний отступ */
+    margin-bottom: 5px;
 }
 
 .item-price {
@@ -475,8 +495,10 @@ h1 {
 
 .item-quantity {
     display: flex;
+    flex-direction: column;
     align-items: center;
     margin-left: auto;
+    min-width: 150px;
 }
 
 .quantity-controls {
@@ -485,15 +507,18 @@ h1 {
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-left: 15px;
+    margin-bottom: 10px;
 }
 
 .quantity-controls button {
-    background: none;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
     font-size: 16px;
     color: #555;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    background: #f9f9f9;
 }
 
 .quantity-controls .quantity {
@@ -503,11 +528,11 @@ h1 {
 }
 
 .remove-button {
-    background-color: #000;
+    background-color: #ff6b6b;
     color: white;
     border: none;
-    padding: 8px 10px;
-    border-radius: 5px;
+    padding: 5px 10px;
+    border-radius: 3px;
     cursor: pointer;
     margin-left: 15px;
     font-size: 14px;
@@ -516,15 +541,20 @@ h1 {
     letter-spacing: 1px;
 }
 
+.remove-button:hover {
+    background-color: #ff5252;
+}
+
 .cart-total {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 20px;
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1.2em;
     color: #333;
     margin-top: 20px;
+    padding: 15px 0;
     border-top: 1px solid #eee;
 }
 
@@ -534,11 +564,18 @@ h1 {
 }
 
 .checkout-button {
-    background-color: #FFA500;
-    color: #000;
+    /* background-color: #FFA500; */
+    background-color: #4CAF50;
+    /* color: #000; */
+    color: white;
     border: none;
-    padding: 12px 24px;
-    border-radius: 5px;
+    display: inline-block;
+    padding: 10px 20px;
+    /* padding: 12px 24px; */
+    text-decoration: none;
+    /* border-radius: 5px; */
+    border-radius: 4px;
+    text-align: center;
     cursor: pointer;
     font-size: 16px;
     font-family: 'Inter', sans-serif;
@@ -548,7 +585,14 @@ h1 {
 }
 
 .checkout-button:hover {
-    background-color: #e69500;
+    /* background-color: #e69500; */
+    background-color: #45a049;
+}
+
+#empty-cart-message {
+    text-align: center;
+    padding: 40px;
+    color: #666;
 }
 
 /* Адаптивность */
