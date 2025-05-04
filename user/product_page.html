@@ -5,21 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Страница товара | ИскраСвет</title>
     <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/products_data.js"></script>
     <script src="./js/product.js" defer></script>
 </head>
 <body class="product-page">
-    <!-- Основной контейнер страницы -->
     <div class="container">
-        <!-- Шапка сайта -->
         <div class="header">
-            <div class="shop-name">ИскраСвет</div>
-            <a href="cart.html" class="cart-info">
-                Корзина <span id="cart-item-count">0</span>
-            </a>
+            <a href="main_page.html" class="shop-name">ИскраСвет</a>
+            <a href="cart.html" class="cart-info">Корзина <span id="cart-item-count">0</span></a>
+            <a href="make_order.html" class="order-link">Оформить заказ</a>
         </div>
     </div>
-
-    <!-- Контейнер товара (заполняется через JS) -->
     <div class="product-container">
         <div class="product-image">
             <img id="product-img" src="" alt="Изображение товара">
@@ -34,8 +30,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Блок контактов магазина -->
     <div class="contacts">
         <div class="container">
             <h3>Контакты магазина</h3>

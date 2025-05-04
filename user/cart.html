@@ -3,38 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Корзина</title>
     <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/products_data.js"></script>
+    <script src="./js/cart.js" defer></script>
+    <script src="./js/cart_page.js" defer></script>
+    <title>ИскраСвет - Корзина</title>
 </head>
-<body>
-    <!-- Основной контейнер страницы -->
+<body class="cart-page">
     <div class="container">
-        <!-- Шапка сайта -->
         <div class="header">
-            <div class="shop-name">ИскраСвет</div>
-            <a href="cart.html" class="cart-info">
-                Корзина <span id="cart-item-count">0</span>
-            </a>
+            <a href="main_page.html" class="shop-name">ИскраСвет</a>
+            <a href="cart.html" class="cart-info">Корзина <span id="cart-item-count">0</span></a>
+            <a href="make_order.html" class="order-link">Оформить заказ</a>
         </div>
     </div>
-
-    <!-- Контейнер корзины -->
     <div class="cart-container">
-        <h1>Корзина</h1>
-        <div id="cart-items-container">
-            <!-- Товары будут добавляться сюда динамически -->
-            <div id="empty-cart-message">Ваша корзина пуста</div>
-        </div>
-        <div class="cart-total">
-            <span>Итоговая стоимость</span>
-            <span id="total-price">0 руб</span>
-        </div>
-        <div class="checkout-button-container">
-            <a href="make_order.html" class="checkout-button">Оформить заказ</a>
+        <h2>Ваша корзина</h2>
+        <div class="cart-items"></div>
+        <div class="cart-summary">
+            <div class="cart-summary-info">
+                <div class="total-items">Товаров в корзине: <span id="total-items">0</span></div>
+                <div class="total-price">Итого: <span id="total-price">0</span> руб</div>
+            </div>
+            <button class="clear-cart">Очистить корзину</button>
+            <button class="checkout">Оформить заказ</button>
         </div>
     </div>
-    
-    <!-- Блок контактов магазина -->
     <div class="contacts">
         <div class="container">
             <h3>Контакты магазина</h3>
@@ -43,130 +37,5 @@
             <p>Адрес: г. Москва, ул. Искрасвет</p>
         </div>
     </div>
-    
-    <script>
-        // Функция для получения корзины из localStorage
-        function getCart() {
-            const cart = localStorage.getItem('cart');
-            return cart ? JSON.parse(cart) : [];
-        }
-
-        // Функция для обновления счетчика товаров
-        function updateCartCounter() {
-            const cart = getCart();
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            document.getElementById('cart-item-count').textContent = totalItems;
-        }
-
-        // Функция для отображения корзины
-        function renderCart() {
-            const cart = getCart();
-            const container = document.getElementById('cart-items-container');
-            const totalPriceElement = document.getElementById('total-price');
-            
-            // Очищаем контейнер
-            container.innerHTML = '';
-            
-            if (cart.length === 0) {
-                container.innerHTML = '<div id="empty-cart-message">Ваша корзина пуста</div>';
-                totalPriceElement.textContent = '0 руб';
-                return;
-            }
-            
-            let totalPrice = 0;
-            
-            // Добавляем каждый товар в корзину
-            cart.forEach(item => {
-                const priceNumber = parseInt(item.price.replace(/\D/g, ''));
-                totalPrice += priceNumber * item.quantity;
-                
-                const cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                cartItem.innerHTML = `
-                    <div class="item-image">
-                        ${item.image ? `<img src="${item.image}" alt="${item.title}">` : 'Изображение товара'}
-                    </div>
-                    <div class="item-details">
-                        <div class="item-title">${item.title}</div>
-                        <div class="item-price">${item.price}</div>
-                    </div>
-                    <div class="item-quantity">
-                        <div class="quantity-controls">
-                            <button class="decrease-quantity" data-id="${item.id}">-</button>
-                            <span class="quantity">${item.quantity}</span>
-                            <button class="increase-quantity" data-id="${item.id}">+</button>
-                        </div>
-                        <button class="remove-button" data-id="${item.id}">Удалить из корзины</button>
-                    </div>
-                `;
-                
-                container.appendChild(cartItem);
-            });
-            
-            // Обновляем итоговую цену
-            totalPriceElement.textContent = `${totalPrice.toLocaleString()} руб`;
-            
-            // Добавляем обработчики событий
-            addCartEventListeners();
-        }
-
-        // Функция для добавления обработчиков событий
-        function addCartEventListeners() {
-            // Увеличение количества
-            document.querySelectorAll('.increase-quantity').forEach(button => {
-                button.addEventListener('click', function() {
-                    const productId = this.getAttribute('data-id');
-                    const cart = getCart();
-                    const item = cart.find(item => item.id === productId);
-                    
-                    if (item) {
-                        item.quantity++;
-                        localStorage.setItem('cart', JSON.stringify(cart));
-                        renderCart();
-                        updateCartCounter();
-                    }
-                });
-            });
-            
-            // Уменьшение количества
-            document.querySelectorAll('.decrease-quantity').forEach(button => {
-                button.addEventListener('click', function() {
-                    const productId = this.getAttribute('data-id');
-                    const cart = getCart();
-                    const itemIndex = cart.findIndex(item => item.id === productId);
-                    
-                    if (itemIndex !== -1) {
-                        if (cart[itemIndex].quantity > 1) {
-                            cart[itemIndex].quantity--;
-                        } else {
-                            cart.splice(itemIndex, 1);
-                        }
-                        
-                        localStorage.setItem('cart', JSON.stringify(cart));
-                        renderCart();
-                        updateCartCounter();
-                    }
-                });
-            });
-            
-            // Удаление товара
-            document.querySelectorAll('.remove-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    const productId = this.getAttribute('data-id');
-                    const cart = getCart().filter(item => item.id !== productId);
-                    
-                    localStorage.setItem('cart', JSON.stringify(cart));
-                    renderCart();
-                    updateCartCounter();
-                });
-            });
-        }
-
-        // Инициализация при загрузке страницы
-        document.addEventListener('DOMContentLoaded', function() {
-            updateCartCounter();
-            renderCart();
-        });
-    </script>
 </body>
 </html>
